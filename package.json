@@ -3,8 +3,7 @@
     "name": "JavaScript30-practice",
     "version": "1.0.0",
     "scripts": {
-        "start": "node_modules/.bin/gulp watch",
-        "deploy": "gh-pages index.html"
+        "start": "node_modules/.bin/gulp watch"
     },
     "description": "Practicing JavaScript with JavaScript30",
     "homepage": "https://melnesbitt12.github.io/JavaScript-practice",
