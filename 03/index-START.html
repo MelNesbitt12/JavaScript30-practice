@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+  <title>Scoped CSS Variables and JS</title>
+</head>
+<body>
+  <h2>Update CSS Variables with <span class='hl'>JS</span></h2>
+
+  <div class="controls">
+    <label for="spacing">Spacing:</label>
+    <input id="spacing" type="range" name="spacing" min="5" max="100" value="20" data-sizing="px">
+
+    <label for="blur">Blur:</label>
+    <input id="blur" type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
+
+    <label for="base">Base Color</label>
+    <input id="base" type="color" name="base" value="#F2D0A4">
+  </div>
+
+  <div class="container">
+  <img src="https://images.unsplash.com/photo-1523457345928-9e51f4d5ba94?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1834&q=80">
+</div>
+
+  <style>
+    /* css variables are declared on an element, or in our case, on the root */
+    /*
+      misc styles, nothing to do with CSS variables
+    */
+    :root {
+      --base: #F2D0A4;
+      --spacing: 20px;
+      --blur: 20px;
+    }
+    .container {
+      width: 350px;
+      height: 100px;
+      margin: 0 auto;
+    }
+
+    .container img {
+      /* passing a value to the variable  */
+      padding: var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+      width: 100%;
+      height: auto;
+    }
+
+    .hl {
+      color: var(--base);
+    }
+
+    body {
+      text-align: center;
+      background: #3F826D;
+      color: white;
+      font-family: 'Playfair Display', serif;
+      font-weight: 100;
+      font-size: 50px;
+    }
+
+    .controls {
+      margin-bottom: 50px;
+    }
+
+    input {
+      width: 100px;
+    }
+  </style>
+
+  <script>
+    // use forEach method to loop over this node list
+    const inputs = document.querySelectorAll('.controls input')
+
+    function handleUpdate () {
+      const suffix = this.dataset.sizing || '';
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix)
+    }
+    // listen for change event on each input:
+    inputs.forEach(input => input.addEventListener('change', handleUpdate))
+    // also listen for the mouseMove update:
+    inputs.forEach(input => input.addEventListener('mousemove', handleUpdate))
+
+  </script>
+
+</body>
+</html>

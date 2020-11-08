@@ -1,6 +1,6 @@
-# My Journeh Through JavaScript30
+# My Journey Through JavaScript30
 
-## 
+##
 
 [![Landing Page Preview]()
 
