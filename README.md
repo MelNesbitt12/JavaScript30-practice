@@ -5,4 +5,4 @@
 ## Practice Makes Perfect!
 In an effort to practice JavaScript every day, I am making my way through the JavaScript30 program online! This repo will hold my progress through the program.
 
-Visit my site at https://melnesbitt12.github.io/JavaScript30-practice/ to follow allow!
+Visit my site at https://melnesbitt12.github.io/JavaScript30-practice/ to follow along!
