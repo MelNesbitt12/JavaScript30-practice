@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+</head>
+<body>
+<p style="font-size:20px;">Click Down & Drag To Draw!</p>
+<canvas id="draw" width="800" height="800"></canvas>
+<script>
+const canvas = document.querySelector('#draw')
+// grab context
+const ctx = canvas.getContext('2d')
+// resize canvas to exact width/height of the window
+canvas.width = window.innerWidth
+canvas.height = window.innerHeight
+
+// base setting: stroke style
+ctx.strokeStyle = '#639291'
+// base setting: line join
+ctx.lineJoin = 'round'
+// base setting: line cap
+ctx.lineCap = 'round'
+// base setting: line width
+ctx.lineWidth = 10
+// blend modes:
+ctx.globalCompositeOperation = 'hard-light'
+
+// only draws when cursor is clicked down
+let isDrawing = false
+
+// when we draw to canvas, we need a starting and ending x & y.
+let lastX = 0
+let lastY = 0
+let hue = 0
+// the width of the line will be building up
+let direction = true
+
+// called whenever mouse is moved on canvas
+const draw = event => {
+  if (!isDrawing) return // stop the function from running when not moused down
+  ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`
+
+  ctx.beginPath()
+  // where the line starts from
+  ctx.moveTo(lastX, lastY)
+  // where the line goes to
+  ctx.lineTo(event.offsetX, event.offsetY)
+  ctx.stroke()
+  // //use destructuring to reset the values of lastX and lastY
+  // [lastX, lastY] = [e.offsetX, e.offsetY]
+  lastX = event.offsetX
+  lastY = event.offsetY
+
+  hue++
+  if(hue >= 360) {
+    hue = 0
+  }
+
+  // for every loop, we are either increasing or decreasing line width
+  if(ctx.lineWidth >= 100 || ctx.lineWidth <= 1) {
+    direction = !direction
+  }
+  // incrementing the line width from 0 to 100
+  if(direction) {
+    ctx.lineWidth++
+    // once we hit 100, we start decrementing the line width
+  } else {
+    ctx.lineWidth--
+  }
+}
+
+// Event listeners...
+canvas.addEventListener('mousemove', draw)
+// functions to set isDrawing to true or false depending on mouse clicked or not clicked
+canvas.addEventListener('mousedown', (event) => {
+  isDrawing = true
+  // as soon as the person clicks their mouse down to start line, before we do mousemove, we are going to update lastX and lastY. That way, we don't always start at 0
+  lastX = event.offsetX
+  lastY = event.offsetY
+})
+canvas.addEventListener('mouseup', () => isDrawing = false)
+// if mouse leaves window and comes back
+canvas.addEventListener('mouseout', () => isDrawing = false)
+
+</script>
+
+<style>
+  html, body {
+    margin: 0;
+  }
+</style>
+
+</body>
+</html>
