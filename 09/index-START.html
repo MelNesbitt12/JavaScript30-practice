@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Console Tricks!</title>
+</head>
+<body>
+
+  <p onClick="makeGreen()">×CLICK×HERE×</p>
+
+  <script>
+    const cats = [{ name: 'Theo', age: 6, home: 'Boston' }, { name: 'Titus', age: 2, home: 'Boston' }];
+
+    function makeGreen() {
+      const p = document.querySelector('p');
+      p.style.color = '#e4572e';
+      p.style.fontSize = '80px';
+    }
+
+    // Regular
+    console.log('hello')
+
+    // Interpolated
+    console.log('Hello I am a %s string!', '👸🏻')
+
+    // Styled
+    console.log('%c This text is being styled', 'font-size: 50px; background: #458748; color: #fff; text-shadow: 10px 10px 0 black')
+
+    // warning!
+    console.warn('OH NO')
+
+    // Error :|
+    console.error('Error!')
+
+    // Info
+    console.info('Crocodiles 🐊 eat 3-4 people per year')
+
+    // Testing - if the first input is false, will see error in console.
+    const p = document.querySelector('p')
+    console.assert(p.classList.contains('ouch'), 'That is wrong!')
+
+    // clearing
+    console.clear()
+
+    // Viewing DOM Elements - displays all properties and methods on the element you pass in
+    console.dir(p)
+
+    // Grouping together
+    cats.forEach(cat => {
+      console.group(`${cat.name}`)
+      console.log(`This is ${cat.name}`)
+      console.log(`${cat.name} is ${cat.age} years old.`)
+      console.log(`${cat.name} lives in ${cat.home}.`)
+      console.groupEnd(`${cat.name}`)
+    })
+
+    // counting
+    console.count('Mel')
+    console.count('Mel')
+    console.count('Mel')
+    console.count('Mel')
+
+    console.count('Theo')
+    console.count('Theo')
+
+    console.count('Titus')
+    console.count('Titus')
+    console.count('Titus')
+    console.count('Titus')
+    console.count('Titus')
+
+    // timing - if you want to see how long a process takes
+    console.time('Fetching data')
+    fetch('https://api.github.com/users/melnesbitt12')
+      .then(data => data.json())
+      .then(data => {
+        console.timeEnd('Fetching data')
+        console.log(data)
+      })
+
+    // table
+    console.table(cats)
+
+  </script>
+</body>
+</html>
