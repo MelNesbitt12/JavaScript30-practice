@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Key Detection</title>
+  <script type="text/javascript" src="https://www.cornify.com/js/cornify.js"></script>
+</head>
+<body>
+<script>
+
+const pressed = []
+const secretCode = 'melnesbitt'
+
+window.addEventListener('keyup', (e) => {
+  console.log(e.key)
+  pressed.push(e.key)
+  // trim the array so that it only ever holds max the same number of letters as secretCode
+  // start counting from the back
+  pressed.splice(-secretCode.length - 1, pressed.length - secretCode.length)
+
+  // check if the secretCode has been added to the pressed array
+  if (pressed.join('').includes(secretCode)){
+    console.log('ding ding!')
+    cornify_add()
+  }
+  console.log(pressed)
+})
+</script>
+</body>
+</html>
