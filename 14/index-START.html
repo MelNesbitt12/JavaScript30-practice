@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap');
+</style>
+<link rel="stylesheet" href="style.css">
+  <title>JS Reference VS Copy</title>
+</head>
+<body>
+  <h1>Pop open the console!</h1>
+  <script>
+    // start with strings, numbers and booleans
+    let age = 100
+    let age2 = age
+    console.log(age, age2) // age and age2 both equal 100
+
+    age = 200
+    console.log(age, age2) // now age = 200, but age2 is still set equal to the original value of age (100)
+
+    let name = 'Mel'
+    let name2 = name
+    console.log(name, name2)
+
+    name = 'Melissa'
+    console.log(name, name2) // as above, now name = Melissa but name2 still stores "Mel" as a value.
+
+    // Let's say we have an array
+    const players = ['Mel', 'Dan', 'Brad', 'Audrey'];
+
+    // and we want to make a copy of it.
+    const team = players
+
+    console.log(players, team)
+
+    // You might think we can just do something like this:
+    team[3] = 'Sarah'
+    console.log(team, players)
+    // however what happens when we update that array?
+
+    // When we log the original players array, we see that players[3] also equals Sarah now. Because we updated team, which is a reference to the original array players. When you updated the array reference, it edits the original array.
+
+    // Why? It's because that is an array reference, not an array copy. They both point to the same array!
+
+    // Make a copy of the original array instead:
+
+    // Using slice:
+    const team2 = players.slice() //without inputting parameters, it will give you a copy of the original array
+    console.log('----SLICE METHOD----')
+    console.log(team2)
+
+    // Using concat: create a new array and concat the old one in
+    const team3 = [].concat(players)
+    console.log('----CONCAT METHOD----')
+    console.log(team3)
+
+    // Using the ES6 Spread operator:
+    const team4 = [...players]
+    console.log('----SPREAD OPERATOR----')
+    console.log(team4)
+    // here you can add a new value into the team4 array
+    team4[3] = 'Michelle'
+    // but the original players array will remain unchanged
+    console.log('----TEAM4 ARRAY----')
+    console.log(team4)
+    console.log('----PLAYERS ARRAY----')
+    console.log(players)
+
+    // Final way using Array.from():
+    const team5 = Array.from(players)
+    console.log('----USING ARRAY.from()----')
+    console.log(team5)
+
+
+
+    // The same thing goes for objects, let's say we have a person object
+    console.log('----OBJECTS----')
+    const person = {
+      name: 'Brad Nesbitt',
+      age: 33
+    };
+    /*
+    // and think we make a copy:
+    const captain = person
+    captain.number = 99
+
+    console.log(person, captain) // here we have edited the original person array, so both objects now have a number property set to 99
+    */
+
+    // how do we take a copy instead? We use Object.assign():
+    const cap2 = Object.assign({}, person, { number: 99, age: 12 }) // here we pass in an empty object, which will hold our copy, and the object (person) we wish to copy the values from. You final parameter is the value you would like to overwrite
+    console.log('----NEW CAP2 OBJECT----')
+    console.log(cap2)
+    console.log('----ORIGINAL PERSON OBJECT----')
+    console.log(person)
+
+    // Object ...spread operator:
+    const cap3 = {...person}
+    console.log('----COPYING WITH SPREAD OPERATOR----')
+    console.log(cap3)
+
+    // Things to note - these operations only work 1 level deep - both for Arrays and Objects.
+    const mel = {
+      name: 'Mel',
+      age: '32',
+      social: {
+        twitter: '@melnesbitt12',
+        facebook: 'melnesbitt.developer'
+      }
+    }
+    // console.clear()
+    console.log('---mel OBJECT---')
+    console.log(mel)
+
+    // make a copy of Mel
+    const dev = Object.assign({}, mel)
+    console.log('----COPY OF mel OBJECT')
+    console.log(dev)
+
+    // you will see that setting the twitter value to 'coolman' on the dev object also changes the twitter value on mel
+    dev.social.twitter = 'bradnesbitt12'
+    console.log('----dev OBJECT TWITTER PROPERTY----')
+    console.log(dev.social.twitter)
+    console.log('----mel OBJECT TWITTER PROPERTY----')
+    console.log(mel.social.twitter)
+
+
+  </script>
+
+</body>
+</html>
